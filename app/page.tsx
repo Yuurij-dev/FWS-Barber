@@ -1,4 +1,3 @@
-"use client"
 
 import { SearchIcon } from "lucide-react"
 import Header from "./_components/header"
@@ -8,8 +7,12 @@ import Image from "next/image"
 import { Card, CardContent } from "./_components/ui/card"
 import { Avatar, AvatarImage } from "./_components/ui/avatar"
 import { Badge } from "./_components/ui/badge"
+import { db } from "./_lib/prisma"
+import BarberShopItem from "./_components/barbershop-item"
 
-export default function Home() {
+export default async function Home() {
+
+  const barberShops = await db.barbershop.findMany({})
   return (
     <div>
       <Header/>
@@ -28,8 +31,12 @@ export default function Home() {
           <Image alt="Agende nos melhores..." src="/banner-01.png" fill className="object-cover rounded-xl"/>
         </div>
 
-        <Card className="mt-6">
+        <h2 className="mt-6 mb-3 text-xs font-bold uppercase text-gray-400 ">Agendamentos</h2>
+
+        <Card>
           <CardContent className="flex justify-between p-0">
+
+            {/* Direita */}
             <div className="flex flex-col gap-2 py-5 pl-5">
               <Badge className="w-fit">Confirmado</Badge>
               <h3>Corte de Cabelo</h3>
@@ -42,6 +49,7 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Esquerda */}
             <div className="flex flex-col items-center justify-center border-l-2 border-solid px-5">
               <p className="text-sm">Agosto</p>
               <p className="text-xl">05</p>
@@ -51,6 +59,15 @@ export default function Home() {
 
           </CardContent>
         </Card>
+
+        <h2 className="mt-6 mb-3 text-xs font-bold uppercase text-gray-400 ">Recomendados</h2>
+
+        <div className="flex gap-4 overflow-auto [&::webkit-scrollbar]:hidden">
+          {barberShops.map((barberShop) => (
+            <BarberShopItem key={barberShop.id} barbershop={barberShop}/>
+          ))}
+        </div>
+
       </div>
     </div>
   )
