@@ -1,14 +1,14 @@
 
-import { Eye, FootprintsIcon, SearchIcon } from "lucide-react"
+import { SearchIcon } from "lucide-react"
 import Header from "./_components/header"
 import { Button } from "./_components/ui/button"
 import { Input } from "./_components/ui/input"
 import Image from "next/image"
 import { Card, CardContent } from "./_components/ui/card"
-import { Avatar, AvatarImage } from "./_components/ui/avatar"
-import { Badge } from "./_components/ui/badge"
 import { db } from "./_lib/prisma"
 import BarberShopItem from "./_components/barbershop-item"
+import { quickSearchOptions } from "./_contants/search"
+import BookingItem from "./_components/booking-item"
 
 export default async function Home() {
 
@@ -35,26 +35,14 @@ export default async function Home() {
 
         {/* Busca Rapida */}
         <div className="flex gap-3 mt-6 overflow-x-scroll  [&::webkit-scrollbar]:hidden">
-          <Button variant="secondary" className="w-full">
-            <Image src="/cabelo.svg" alt="Cabelo" width={16} height={16}/>
-            Cabelo
-          </Button>
-          <Button variant="secondary" className="w-full">
-            <Image src="/barba.svg" alt="Barba" width={16} height={16}/>  
-            Barba
-          </Button>
-          <Button variant="secondary" className="w-full">
-            <Image src="/acabamento.svg" alt="Acabamento" width={16} height={16}/>
-            Acabamentos  
-          </Button> 
-          <Button variant="secondary" className="w-full">
-            <FootprintsIcon size={16}/>
-            Pézinho  
-          </Button> 
-          <Button variant="secondary" className="w-full">
-            <Eye size={16}/>
-            Sobrancelha  
-          </Button> 
+
+          {quickSearchOptions.map((option) => (
+            <Button key={option.title} variant="secondary" className="w-full">
+              <Image src={option.imageUrl} alt={option.title} width={16} height={16}/>
+              {option.title}
+            </Button>
+          ))}
+          
         </div>
 
         {/* Banner */}
@@ -62,34 +50,8 @@ export default async function Home() {
           <Image alt="Agende nos melhores..." src="/banner-01.png" fill className="object-cover rounded-xl"/>
         </div>
 
-        <h2 className="mt-6 mb-3 text-xs font-bold uppercase text-gray-400 ">Agendamentos</h2>
-
-        <Card>
-          <CardContent className="flex justify-between p-0">
-
-            {/* Direita */}
-            <div className="flex flex-col gap-2 py-5 pl-5">
-              <Badge className="w-fit">Confirmado</Badge>
-              <h3>Corte de Cabelo</h3>
-            
-              <div className="flex items-center gap-2">
-                <Avatar className="w-6 h-6">
-                  <AvatarImage src="https://utfs.io/f/c97a2dc9-cf62-468b-a851-bfd2bdde775f-16p.png"/> 
-                </Avatar>
-                <p>Barbearia do Zé</p>
-              </div>
-            </div>
-
-            {/* Esquerda */}
-            <div className="flex flex-col items-center justify-center border-l-2 border-solid px-5">
-              <p className="text-sm">Agosto</p>
-              <p className="text-xl">05</p>
-              <p className="text-sm">20:00</p>
-            </div>
-
-
-          </CardContent>
-        </Card>
+        {/* Agendamentos */}
+        <BookingItem />
 
         {/* Acabamentos */}
         <h2 className="mt-6 mb-3 text-xs font-bold uppercase text-gray-400 ">Recomendados</h2>
