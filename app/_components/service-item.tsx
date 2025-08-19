@@ -29,7 +29,7 @@ const ServiceItem = ({service}: ServiceItemProps) => {
                             }).format(Number(service.price))}
                         </p>
 
-                        <Button variant={"secondary"} size="default">
+                        <Button variant={"secondary"} size="sm">
                             Reservar
                         </Button>
                     </div>
