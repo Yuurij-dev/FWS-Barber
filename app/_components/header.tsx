@@ -9,6 +9,7 @@ import Link from "next/link"
 import { useSession } from "next-auth/react"
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog"
 import SignInDialog from "./sign-in-dialog"
+import { Avatar, AvatarImage } from "./ui/avatar"
 
 const Header = () => {
   const { data } = useSession()
@@ -28,17 +29,24 @@ const Header = () => {
         </Sheet>
 
         {data?.user ? (
-          <Button
-            className="hidden xl:flex"
-            variant={"ghost"}
-            size={"default"}
-            asChild
-          >
-            <Link href={"/bookings"}>
-              <CalendarIcon size={18} />
-              Agendamentos
-            </Link>
-          </Button>
+          <div className="hidden items-center gap-4 xl:flex">
+            <Button variant={"ghost"} size={"default"} asChild>
+              <Link href={"/bookings"}>
+                <CalendarIcon size={18} />
+                Agendamentos
+              </Link>
+            </Button>
+
+            <div className="hidden items-center gap-2 xl:flex">
+              <Avatar>
+                <AvatarImage
+                  src={data.user.image ?? undefined}
+                  alt="User image"
+                />
+              </Avatar>
+              <h2 className="font-semibold">{data.user.name}</h2>
+            </div>
+          </div>
         ) : (
           <Dialog>
             <DialogTrigger asChild>
