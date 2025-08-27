@@ -13,66 +13,66 @@ import { Avatar, AvatarImage } from "./ui/avatar"
 import Search from "./search"
 
 const HeaderDesktop = () => {
-    const { data } = useSession()
-    return (
-        <Card className="w-full ">
-            <CardContent className="xl:m-auto xl:max-w-[1500px] w-full flex flex-row items-center justify-evenly p-5 ">
-                <div className="flex gap-4 items-center w-full">
-                    <Link href={"/"}>
-                        <Image alt="FSW Barber" src="/logo.png" height={10} width={120} />
-                    </Link>
+  const { data } = useSession()
+  return (
+    <Card className="w-full">
+      <CardContent className="flex w-full flex-row items-center justify-evenly p-5 xl:m-auto xl:max-w-[1500px]">
+        <div className="flex w-full items-center gap-4">
+          <Link href={"/"}>
+            <Image alt="FSW Barber" src="/logo.png" height={10} width={120} />
+          </Link>
 
-                    <Search />
-                </div>
-                <Sheet>
-                    <SheetTrigger asChild>
-                        <Button size={"icon"} variant={"outline"} className="xl:hidden">
-                            <MenuIcon />
-                        </Button>
-                    </SheetTrigger>
-                    <SideBarSheet />
-                </Sheet>
+          <Search />
+        </div>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button size={"icon"} variant={"outline"} className="xl:hidden">
+              <MenuIcon />
+            </Button>
+          </SheetTrigger>
+          <SideBarSheet />
+        </Sheet>
 
-                {data?.user ? (
-                    <div className="hidden items-center gap-4 xl:flex">
-                        <Button variant={"ghost"} size={"default"} asChild>
-                            <Link href={"/bookings"}>
-                                <CalendarIcon size={18} />
-                                Agendamentos
-                            </Link>
-                        </Button>
+        {data?.user ? (
+          <div className="hidden items-center gap-4 xl:flex">
+            <Button variant={"ghost"} size={"default"} asChild>
+              <Link href={"/bookings"}>
+                <CalendarIcon size={18} />
+                Agendamentos
+              </Link>
+            </Button>
 
-                        <div className="hidden items-center gap-2 xl:flex">
-                            <Avatar>
-                                <AvatarImage
-                                    src={data.user.image ?? undefined}
-                                    alt="User image"
-                                />
-                            </Avatar>
-                            <h2 className="font-semibold">{data.user.name}</h2>
-                        </div>
-                    </div>
-                ) : (
-                    <Dialog>
-                        <DialogTrigger asChild>
-                            <Button
-                                className="hidden xl:flex"
-                                variant={"default"}
-                                size={"default"}
-                            >
-                                <User size={18} />
-                                Faça Login
-                            </Button>
-                        </DialogTrigger>
+            <div className="hidden items-center gap-2 xl:flex">
+              <Avatar>
+                <AvatarImage
+                  src={data.user.image ?? undefined}
+                  alt="User image"
+                />
+              </Avatar>
+              <h2 className="font-semibold">{data.user.name}</h2>
+            </div>
+          </div>
+        ) : (
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button
+                className="hidden xl:flex"
+                variant={"default"}
+                size={"default"}
+              >
+                <User size={18} />
+                Faça Login
+              </Button>
+            </DialogTrigger>
 
-                        <DialogContent className="w-[90%]">
-                            <SignInDialog />
-                        </DialogContent>
-                    </Dialog>
-                )}
-            </CardContent>
-        </Card>
-    )
+            <DialogContent className="w-[90%]">
+              <SignInDialog />
+            </DialogContent>
+          </Dialog>
+        )}
+      </CardContent>
+    </Card>
+  )
 }
 
 export default HeaderDesktop

@@ -6,7 +6,6 @@ import SideBarSheet from "@/app/_components/sidebar-sheet"
 import { Button } from "@/app/_components/ui/button"
 import { Sheet, SheetTrigger } from "@/app/_components/ui/sheet"
 import { db } from "@/app/_lib/prisma"
-import { Prisma } from "@prisma/client"
 import { ChevronLeftIcon, MapIcon, MenuIcon, StarIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -19,8 +18,6 @@ interface BarberShopPageProps {
 }
 
 const BarberShopPage = async ({ params }: BarberShopPageProps) => {
-
-
   const barbershop = await db.barbershop.findUnique({
     where: {
       id: params.id,
@@ -36,8 +33,8 @@ const BarberShopPage = async ({ params }: BarberShopPageProps) => {
   return (
     <div>
       <HeaderDesktop />
-      <div className="xl:m-auto xl:max-w-[1500px] md:flex md:gap-10 xl:my-10 md:my-10">
-        <div className="md:w-[70%]">
+      <div className="md:my-10 md:flex md:gap-10 xl:m-auto xl:my-10 xl:max-w-[1500px]">
+        <div className="md:w-[75%]">
           <div className="relative h-[250px] w-full md:h-[600px]">
             {/* Image */}
             <Image
@@ -88,14 +85,18 @@ const BarberShopPage = async ({ params }: BarberShopPageProps) => {
 
           {/* Descrição */}
           <div className="space-y-2 border-b border-solid p-5">
-            <h2 className="text-xs font-bold uppercase text-gray-400">sobre nós</h2>
+            <h2 className="text-xs font-bold uppercase text-gray-400">
+              sobre nós
+            </h2>
             <p className="text-justify text-sm">{barbershop.description}</p>
           </div>
 
           {/* Serviços */}
           <div className="space-y-4 border-b border-solid p-5">
-            <h1 className="text-xs font-bold uppercase text-gray-400">Serviços</h1>
-            <div className="space-y-3 xl:grid grid-cols-2 gap-4 xl:space-y-0">
+            <h1 className="text-xs font-bold uppercase text-gray-400">
+              Serviços
+            </h1>
+            <div className="grid-cols-2 gap-4 space-y-3 xl:grid xl:space-y-0">
               {barbershop.services.map((service) => (
                 <ServiceItem
                   key={service.id}
@@ -108,18 +109,18 @@ const BarberShopPage = async ({ params }: BarberShopPageProps) => {
 
           {/* Contato */}
           <div className="space-y-3 p-5">
-            <h1 className="text-xs font-bold uppercase text-gray-400">Contato</h1>
+            <h1 className="text-xs font-bold uppercase text-gray-400">
+              Contato
+            </h1>
             {barbershop.phones.map((phone, index) => (
               <PhoneItem key={phone + "-" + index} phone={phone} />
             ))}
           </div>
         </div>
-        <div className="hidden md:block md:w-[30%]">
+        <div className="hidden md:block md:w-[25%]">
           <AboutBarberShop barberShop={barbershop} />
-
         </div>
       </div>
-
     </div>
   )
 }
