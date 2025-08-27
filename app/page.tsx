@@ -12,16 +12,14 @@ import { authOptions } from "./_lib/auth"
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
 import { getConfirmedBookings } from "./_data/get-confirmed-bookings"
+import { getPopularBarberShops } from "./_data/get-popular-barbershops"
 
 export default async function Home() {
   const session = await getServerSession(authOptions)
 
   const barberShops = await db.barbershop.findMany({})
-  const popularBarberShops = await db.barbershop.findMany({
-    orderBy: {
-      name: "desc",
-    },
-  })
+
+  const popularBarberShops = await getPopularBarberShops()
 
   const confirmedBookings = await getConfirmedBookings()
 
