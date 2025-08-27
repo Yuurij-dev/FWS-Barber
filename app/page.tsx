@@ -18,9 +18,7 @@ export default async function Home() {
   const session = await getServerSession(authOptions)
 
   const barberShops = await getBarberShops()
-
   const popularBarberShops = await getPopularBarberShops()
-
   const confirmedBookings = await getConfirmedBookings()
 
   return (
@@ -28,7 +26,7 @@ export default async function Home() {
       <Header />
       <div className="">
         <div className="relative">
-          <div className="absolute inset-0 -z-10 hidden xl:block">
+          <div className="absolute inset-0 -z-10 hidden lg:block">
             <Image
               src="/background-desktop.jpg"
               alt="Foto Barbeiro background"
@@ -36,9 +34,9 @@ export default async function Home() {
               className="object-cover object-top opacity-[0.1] grayscale filter"
             />
           </div>
-          <div className="p-5 xl:m-auto xl:flex xl:max-w-[1200px] xl:flex-col xl:gap-5 xl:py-16 2xl:max-w-[1400px]">
-            <div className="gap-4 xl:flex xl:justify-between">
-              <div className="xl:mt-4 xl:w-full">
+          <div className="p-5 lg:m-auto lg:flex lg:max-w-[1200px] lg:flex-col lg:gap-5 lg:py-16 2xl:max-w-[1400px]">
+            <div className="gap-4 lg:flex lg:justify-between">
+              <div className="lg:mt-4 lg:w-full">
                 <h1 className="text-xl font-bold">
                   Olá, {session?.user ? session?.user.name : "Faça seu login"}!
                 </h1>
@@ -51,13 +49,13 @@ export default async function Home() {
                 </p>
 
                 {/* Busca */}
-                <div className="mt-6 xl:mt-10 xl:w-full xl:max-w-[400px]">
+                <div className="mt-6 lg:mt-10 lg:w-full lg:max-w-[400px]">
                   <Search />
                 </div>
               </div>
 
               {/* Recomendados (desktop) */}
-              <div className="hidden w-full xl:block">
+              <div className="hidden w-full lg:block">
                 <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
                   Recomendados
                 </h2>
@@ -77,7 +75,7 @@ export default async function Home() {
 
         <div className="p-5">
           {/* Busca Rapida */}
-          <div className="mt-6 flex gap-3 overflow-x-scroll xl:hidden [&::-webkit-scrollbar]:hidden">
+          <div className="mt-6 flex gap-3 overflow-x-scroll lg:hidden [&::-webkit-scrollbar]:hidden">
             {quickSearchOptions.map((option) => (
               <Button
                 key={option.title}
@@ -99,7 +97,7 @@ export default async function Home() {
           </div>
 
           {/* Banner */}
-          <div className="relative mt-6 h-[150px] w-full xl:hidden">
+          <div className="relative mt-6 h-[150px] w-full lg:hidden">
             <Image
               alt="Agende nos melhores..."
               src="/banner-01.png"
@@ -110,7 +108,7 @@ export default async function Home() {
 
           {/* Agendamentos */}
           {confirmedBookings.length > 0 && (
-            <div className="xl:hidden">
+            <div className="lg:hidden">
               <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
                 Agendamentos
               </h2>
@@ -127,7 +125,7 @@ export default async function Home() {
           )}
 
           {/* Acabamentos */}
-          <div className="xl:hidden">
+          <div className="lg:hidden">
             <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
               Recomendados
             </h2>
@@ -140,8 +138,8 @@ export default async function Home() {
           </div>
 
           {/* Populares */}
-          <div className="mt-6 xl:m-auto xl:flex xl:max-w-[1200px] xl:flex-col xl:gap-5 2xl:max-w-[1400px]">
-            <h2 className="mb-3 text-xs font-bold uppercase text-gray-400 xl:text-lg xl:font-semibold xl:text-white">
+          <div className="mt-6 lg:m-auto lg:flex lg:max-w-[1200px] lg:flex-col lg:gap-5 2xl:max-w-[1400px]">
+            <h2 className="mb-3 text-xs font-bold uppercase text-gray-400 lg:text-lg lg:font-semibold lg:text-white">
               populares
             </h2>
 
@@ -153,8 +151,8 @@ export default async function Home() {
           </div>
 
           {/* Mais Vísitados */}
-          <div className="xl:m-auto xl:mb-6 xl:flex xl:max-w-[1200px] xl:flex-col xl:gap-5 2xl:max-w-[1400px]">
-            <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400 xl:text-lg xl:font-semibold xl:text-white">
+          <div className="lg:m-auto lg:mb-6 lg:flex lg:max-w-[1200px] lg:flex-col lg:gap-5 2xl:max-w-[1400px]">
+            <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400 lg:text-lg lg:font-semibold lg:text-white">
               mais visitados
             </h2>
 
