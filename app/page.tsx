@@ -52,6 +52,33 @@ export default async function Home() {
                 <div className="mt-6 lg:mt-10 lg:w-full lg:max-w-[400px]">
                   <Search />
                 </div>
+
+                {confirmedBookings.length > 0 && (
+                  <div className="">
+                    <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+                      Agendamentos
+                    </h2>
+
+                    <div className="flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+                      {(() => {
+                        // Ordena os agendamentos pela data mais próxima
+                        const sortedBookings = confirmedBookings.sort(
+                          (a, b) =>
+                            new Date(a.date).getTime() -
+                            new Date(b.date).getTime(),
+                        )
+                        // Pega apenas o primeiro (mais próximo)
+                        const nextBooking = sortedBookings[0]
+                        return (
+                          <BookingItem
+                            key={nextBooking.id}
+                            booking={JSON.parse(JSON.stringify(nextBooking))}
+                          />
+                        )
+                      })()}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Recomendados (desktop) */}
