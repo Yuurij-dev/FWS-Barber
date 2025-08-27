@@ -39,7 +39,11 @@ const Search = () => {
           render={({ field }) => (
             <FormItem className="w-full">
               <FormControl>
-                <Input placeholder="Faça sua busca..." {...field} />
+                <Input
+                  className="xl:h-10"
+                  placeholder="Faça sua busca..."
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
