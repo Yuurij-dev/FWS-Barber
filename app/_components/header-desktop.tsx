@@ -15,14 +15,16 @@ import Search from "./search"
 const HeaderDesktop = () => {
   const { data } = useSession()
   return (
-    <Card className="w-full">
-      <CardContent className="flex w-full flex-row items-center justify-evenly p-5 xl:m-auto xl:max-w-[1500px]">
-        <div className="flex w-full items-center gap-4">
+    <Card className="hidden w-full md:block">
+      <CardContent className="flex w-full flex-row items-center justify-between gap-5 p-5 xl:m-auto xl:max-w-[1500px]">
+        <div className="flex w-full items-center gap-5">
           <Link href={"/"}>
             <Image alt="FSW Barber" src="/logo.png" height={10} width={120} />
           </Link>
 
-          <Search />
+          <div className="w-full max-w-[700px]">
+            <Search />
+          </div>
         </div>
         <Sheet>
           <SheetTrigger asChild>

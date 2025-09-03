@@ -15,19 +15,8 @@ async function seedDatabase() {
       "https://utfs.io/f/60f24f5c-9ed3-40ba-8c92-0cd1dcd043f9-16w.png",
       "https://utfs.io/f/f64f1bd4-59ce-4ee3-972d-2399937eeafc-16x.png",
       "https://utfs.io/f/e995db6d-df96-4658-99f5-11132fd931e1-17j.png",
-      "https://utfs.io/f/3bcf33fc-988a-462b-8b98-b811ee2bbd71-17k.png",
-      "https://utfs.io/f/5788be0e-2307-4bb4-b603-d9dd237950a2-17l.png",
-      "https://utfs.io/f/6b0888f8-b69f-4be7-a13b-52d1c0c9cab2-17m.png",
-      "https://utfs.io/f/ef45effa-415e-416d-8c4a-3221923cd10f-17n.png",
-      "https://utfs.io/f/ef45effa-415e-416d-8c4a-3221923cd10f-17n.png",
-      "https://utfs.io/f/a55f0f39-31a0-4819-8796-538d68cc2a0f-17o.png",
-      "https://utfs.io/f/5c89f046-80cd-4443-89df-211de62b7c2a-17p.png",
-      "https://utfs.io/f/23d9c4f7-8bdb-40e1-99a5-f42271b7404a-17q.png",
-      "https://utfs.io/f/9f0847c2-d0b8-4738-a673-34ac2b9506ec-17r.png",
-      "https://utfs.io/f/07842cfb-7b30-4fdc-accc-719618dfa1f2-17s.png",
-      "https://utfs.io/f/0522fdaf-0357-4213-8f52-1d83c3dcb6cd-18e.png",
     ]
-    // Nomes criativos para as barbearias
+
     const creativeNames = [
       "Barbearia Vintage",
       "Corte & Estilo",
@@ -41,7 +30,6 @@ async function seedDatabase() {
       "Estilo Clássico",
     ]
 
-    // Endereços fictícios para as barbearias
     const addresses = [
       "Rua da Barbearia, 123",
       "Avenida dos Cortes, 456",
@@ -100,47 +88,56 @@ async function seedDatabase() {
       },
     ]
 
-    // Criar 10 barbearias com nomes e endereços fictícios
-    const barbershops = []
-    for (let i = 0; i < 10; i++) {
-      const name = creativeNames[i]
-      const address = addresses[i]
-      const imageUrl = images[i]
+    const schedules = [
+      { dayOfWeek: 0, isClosed: true }, // Domingo
+      { dayOfWeek: 1, isClosed: true }, // Segunda
+      { dayOfWeek: 2, openTime: "09:00", closeTime: "21:00", isClosed: false },
+      { dayOfWeek: 3, openTime: "09:00", closeTime: "21:00", isClosed: false },
+      { dayOfWeek: 4, openTime: "09:00", closeTime: "21:00", isClosed: false },
+      { dayOfWeek: 5, openTime: "09:00", closeTime: "21:00", isClosed: false },
+      { dayOfWeek: 6, openTime: "08:00", closeTime: "17:00", isClosed: false },
+    ]
 
+    for (let i = 0; i < 10; i++) {
       const barbershop = await prisma.barbershop.create({
         data: {
-          name,
-          address,
-          imageUrl: imageUrl,
+          name: creativeNames[i],
+          address: addresses[i],
+          imageUrl: images[i],
           phones: ["(11) 99999-9999", "(11) 99999-9999"],
           description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac augue ullamcorper, pharetra orci mollis, auctor tellus. Phasellus pharetra erat ac libero efficitur tempus. Donec pretium convallis iaculis. Etiam eu felis sollicitudin, cursus mi vitae, iaculis magna. Nam non erat neque. In hac habitasse platea dictumst. Pellentesque molestie accumsan tellus id laoreet.",
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac augue ullamcorper...",
         },
       })
 
+      // cria serviços
       for (const service of services) {
         await prisma.barbershopService.create({
           data: {
-            name: service.name,
-            description: service.description,
-            price: service.price,
-            barbershop: {
-              connect: {
-                id: barbershop.id,
-              },
-            },
-            imageUrl: service.imageUrl,
+            ...service,
+            barbershopId: barbershop.id,
           },
         })
       }
 
-      barbershops.push(barbershop)
+      // cria horários
+      for (const schedule of schedules) {
+        await prisma.barbershopSchedule.create({
+          data: {
+            ...schedule,
+            barbershopId: barbershop.id,
+          },
+        })
+      }
     }
 
-    // Fechar a conexão com o banco de dados
+    console.log("✅ Seed concluída com barbearias, serviços e horários")
+
     await prisma.$disconnect()
   } catch (error) {
     console.error("Erro ao criar as barbearias:", error)
+    await prisma.$disconnect()
+    process.exit(1)
   }
 }
 

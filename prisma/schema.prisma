@@ -58,15 +58,16 @@ model VerificationRequest {
 }
 
 model Barbershop {
-  id          String              @id @default(uuid())
+  id          String               @id @default(uuid())
   name        String
   address     String
   phones      String[]
   description String
   imageUrl    String
-  createdAt   DateTime            @default(now())
-  updatedAt   DateTime            @updatedAt
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
   services    BarbershopService[]
+  schedules   BarbershopSchedule[]
 }
 
 model BarbershopService {
@@ -79,6 +80,16 @@ model BarbershopService {
   barbershopId String
   barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
   bookings     Booking[]
+}
+
+model BarbershopSchedule {
+  id           String     @id @default(uuid())
+  dayOfWeek    Int // 0 = Domingo, 1 = Segunda ... 6 = Sábado
+  openTime     String? // "09:00"
+  closeTime    String? // "21:00"
+  isClosed     Boolean    @default(false)
+  barbershopId String
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
 }
 
 model Booking {

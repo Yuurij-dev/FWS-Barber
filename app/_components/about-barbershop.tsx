@@ -3,14 +3,28 @@ import { Card, CardContent, CardFooter } from "./ui/card"
 import Image from "next/image"
 import { Avatar, AvatarImage } from "./ui/avatar"
 import PhoneItem from "./phone-item"
+import { db } from "../_lib/prisma"
 
 interface AboutBarberShopProps {
   barberShop: Pick<
     Barbershop,
-    "name" | "address" | "imageUrl" | "phones"
+    "name" | "address" | "imageUrl" | "phones" | "id"
   > | null
 }
-export const AboutBarberShop = ({ barberShop }: AboutBarberShopProps) => {
+export const AboutBarberShop = async ({ barberShop }: AboutBarberShopProps) => {
+  if (!barberShop) {
+    return null
+  }
+
+  const schedules = await db.barbershop.findUnique({
+    where: {
+      id: barberShop.id,
+    },
+    include: {
+      schedules: true,
+    },
+  })
+
   return (
     <Card className="w-full">
       <CardContent className="w-full space-y-3 p-5">
@@ -51,10 +65,42 @@ export const AboutBarberShop = ({ barberShop }: AboutBarberShopProps) => {
             <PhoneItem phone={phone} key={phone + index} />
           ))}
         </div>
+
+        <div>
+          <div>
+            {schedules?.schedules.map((schedule) => (
+              <div
+                key={schedule.id}
+                className="mb-2 flex items-center justify-between"
+              >
+                <span className="font-semibold text-gray-400">
+                  {schedule.dayOfWeek === 0
+                    ? "Segunda"
+                    : schedule.dayOfWeek === 1
+                      ? "Terça"
+                      : schedule.dayOfWeek === 2
+                        ? "Quarta"
+                        : schedule.dayOfWeek === 3
+                          ? "Quinta"
+                          : schedule.dayOfWeek === 4
+                            ? "Sexta"
+                            : schedule.dayOfWeek === 5
+                              ? "Sábado"
+                              : "Domingo"}
+                </span>
+                <span className="ml-2 font-semibold">
+                  {schedule.isClosed
+                    ? "Fechado"
+                    : `${schedule.openTime ?? "-"} - ${schedule.closeTime ?? "-"}`}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
       </CardContent>
 
       <CardFooter className="flex items-center justify-between">
-        <p className="text-sm text-gray-400">Em Parceria com</p>
+        <p className="text-sm font-bold">Em Parceria com</p>
         <Image alt="FSW Barber" src="/logo.png" height={10} width={120} />
       </CardFooter>
     </Card>

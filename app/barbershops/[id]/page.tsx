@@ -24,17 +24,17 @@ const BarberShopPage = async ({ params }: BarberShopPageProps) => {
     },
     include: {
       services: true,
+      schedules: true,
     },
   })
-
   if (!barbershop) {
     return notFound()
   }
   return (
     <div>
       <HeaderDesktop />
-      <div className="md:my-10 md:flex md:gap-10 xl:m-auto xl:my-10 xl:max-w-[1500px]">
-        <div className="md:w-[75%]">
+      <div className="md:my-10 md:flex md:gap-10 md:p-5 xl:m-auto xl:my-10 xl:max-w-[1500px]">
+        <div className="w-full xl:w-[75%]">
           <div className="relative h-[250px] w-full md:h-[600px]">
             {/* Image */}
             <Image
@@ -92,7 +92,7 @@ const BarberShopPage = async ({ params }: BarberShopPageProps) => {
           </div>
 
           {/* Serviços */}
-          <div className="space-y-4 border-b border-solid p-5">
+          <div className="space-y-4 border-b border-solid p-5 md:border-0">
             <h1 className="text-xs font-bold uppercase text-gray-400">
               Serviços
             </h1>
@@ -108,7 +108,7 @@ const BarberShopPage = async ({ params }: BarberShopPageProps) => {
           </div>
 
           {/* Contato */}
-          <div className="space-y-3 p-5">
+          <div className="space-y-3 p-5 md:hidden">
             <h1 className="text-xs font-bold uppercase text-gray-400">
               Contato
             </h1>
@@ -117,7 +117,7 @@ const BarberShopPage = async ({ params }: BarberShopPageProps) => {
             ))}
           </div>
         </div>
-        <div className="hidden md:block md:w-[25%]">
+        <div className="hidden xl:block xl:w-[25%]">
           <AboutBarberShop barberShop={barbershop} />
         </div>
       </div>
