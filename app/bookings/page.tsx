@@ -2,9 +2,11 @@ import { getServerSession } from "next-auth"
 import Header from "../_components/header"
 import { authOptions } from "../_lib/auth"
 import { notFound } from "next/navigation"
-import BookingItem from "../_components/booking-item"
 import { getConfirmedBookings } from "../_data/get-confirmed-bookings"
 import { getConcluedBookings } from "../_data/get-concluded-bookings"
+import HeaderDesktop from "../_components/header-desktop"
+// import { Card, CardContent } from "../_components/ui/card"
+import BookingsClient from "../_components/bookings-client"
 
 const Bookings = async () => {
   const session = await getServerSession(authOptions)
@@ -19,8 +21,9 @@ const Bookings = async () => {
   return (
     <>
       <Header />
+      <HeaderDesktop />
 
-      <div className="space-y-3 p-5">
+      <div className="jusctify-center flex w-full flex-col space-y-3 p-5 md:m-auto md:max-w-[1500px]">
         <h1 className="text-xl font-bold">Agendamentos</h1>
 
         {confirmedBookings.length === 0 && concludedBookings.length === 0 && (
@@ -28,29 +31,11 @@ const Bookings = async () => {
         )}
         {confirmedBookings.length > 0 && (
           <>
-            <h2 className="mb-4 mt-6 text-xs font-bold uppercase text-gray-400">
-              Confirmados
-            </h2>
-            {confirmedBookings.map((booking) => (
-              <BookingItem
-                key={booking.id}
-                booking={JSON.parse(JSON.stringify(booking))}
+            <div className="">
+              <BookingsClient
+                bookings={[...confirmedBookings, ...concludedBookings]}
               />
-            ))}
-          </>
-        )}
-
-        {concludedBookings.length > 0 && (
-          <>
-            <h2 className="mb-4 mt-6 text-xs font-bold uppercase text-gray-400">
-              Finalizados
-            </h2>
-            {concludedBookings.map((booking) => (
-              <BookingItem
-                key={booking.id}
-                booking={JSON.parse(JSON.stringify(booking))}
-              />
-            ))}
+            </div>
           </>
         )}
       </div>

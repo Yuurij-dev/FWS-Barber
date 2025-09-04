@@ -14,7 +14,7 @@ import { Avatar, AvatarImage } from "./ui/avatar"
 const Header = () => {
   const { data } = useSession()
   return (
-    <Card>
+    <Card className="md:hidden">
       <CardContent className="flex flex-row items-center justify-between p-5 xl:m-auto xl:max-w-[1200px] xl:gap-5 2xl:max-w-[1400px]">
         <Link href={"/"}>
           <Image alt="FSW Barber" src="/logo.png" height={10} width={120} />
