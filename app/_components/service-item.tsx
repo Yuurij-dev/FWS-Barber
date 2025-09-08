@@ -17,6 +17,17 @@ import { Dialog, DialogContent } from "./ui/dialog"
 import SignInDialog from "./sign-in-dialog"
 import BookingSummary from "./booking-summary"
 import { useRouter } from "next/navigation"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog"
+import { Check } from "lucide-react"
 
 interface ServiceItemProps {
   service: BarbershopService
@@ -144,7 +155,7 @@ const ServiceItem = ({ service, barberShop }: ServiceItemProps) => {
           onClick: () => router.push("/bookings"),
         },
       })
-      handleBookingSheetOpenChange()
+      // handleBookingSheetOpenChange()
     } catch (err) {
       console.error(err)
       toast.error("Erro ao criar reserva!")
@@ -199,7 +210,7 @@ const ServiceItem = ({ service, barberShop }: ServiceItemProps) => {
                 </Button>
 
                 <SheetContent className="px-0">
-                  <SheetHeader>
+                  <SheetHeader className="p-5">
                     <h2>Fazer Reserva</h2>
                   </SheetHeader>
 
@@ -271,12 +282,35 @@ const ServiceItem = ({ service, barberShop }: ServiceItemProps) => {
                   )}
 
                   <SheetFooter className="mt-5 px-5">
-                    <Button
-                      onClick={handleCreateBooking}
-                      disabled={!selectedDay || !selectedTime}
-                    >
-                      Confirmar
-                    </Button>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button onClick={handleCreateBooking}>Confirmar</Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent className="w-[90vw] max-w-sm items-center rounded-2xl text-center">
+                        <AlertDialogHeader>
+                          <div className="flex justify-center">
+                            <div className="rounded-full bg-purple-600 p-3">
+                              <Check className="h-6 w-6 text-white" />
+                            </div>
+                          </div>
+                          <AlertDialogTitle className="mt-3 text-center text-lg font-semibold">
+                            Reserva Efetuada!
+                          </AlertDialogTitle>
+                          <AlertDialogDescription className="text-center text-gray-400">
+                            Sua reserva foi agendada com sucesso.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter className="flex justify-center">
+                          <AlertDialogAction
+                            className="w-full"
+                            disabled={!selectedDay || !selectedTime}
+                            onClick={handleBookingSheetOpenChange}
+                          >
+                            Confirmar
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </SheetFooter>
                 </SheetContent>
               </Sheet>
