@@ -56,12 +56,12 @@ export default async function Home() {
                 </div>
 
                 {confirmedBookings.length > 0 && (
-                  <div className="">
+                  <div className="hidden lg:block">
                     <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
                       Agendamentos
                     </h2>
 
-                    <div className="flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+                    <div className="flex w-full gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
                       {(() => {
                         // Ordena os agendamentos pela data mais próxima
                         const sortedBookings = confirmedBookings.sort(
@@ -70,13 +70,14 @@ export default async function Home() {
                             new Date(b.date).getTime(),
                         )
                         // Pega apenas o primeiro (mais próximo)
-                        const nextBooking = sortedBookings[0]
-                        return (
+                        const nextBooking = sortedBookings.slice(0, 2)
+
+                        return nextBooking.map((booking) => (
                           <BookingItem
-                            key={nextBooking.id}
-                            booking={JSON.parse(JSON.stringify(nextBooking))}
+                            key={booking.id}
+                            booking={JSON.parse(JSON.stringify(booking))}
                           />
-                        )
+                        ))
                       })()}
                     </div>
                   </div>
