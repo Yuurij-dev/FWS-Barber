@@ -24,18 +24,18 @@ const Bookings = async () => {
       <HeaderDesktop />
 
       <div className="jusctify-center flex w-full flex-col space-y-3 p-5 md:m-auto md:max-w-[1500px]">
-        <h1 className="text-xl font-bold">Agendamentos</h1>
+        <div className="mb-3 w-full md:mx-auto lg:w-[90%]">
+          <h1 className="text-xl font-bold">Agendamentos</h1>
+        </div>
 
         {confirmedBookings.length === 0 && concludedBookings.length === 0 && (
           <p className="text-gray-400">Você ainda não tem agendamentos.</p>
         )}
         {(confirmedBookings.length > 0 || concludedBookings.length > 0) && (
           <>
-            <div className="">
-              <BookingsClient
-                bookings={[...confirmedBookings, ...concludedBookings]}
-              />
-            </div>
+            <BookingsClient
+              bookings={[...confirmedBookings, ...concludedBookings]}
+            />
           </>
         )}
       </div>

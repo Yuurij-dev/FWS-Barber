@@ -57,12 +57,12 @@ export default function BookingsClient({
     })
   }, [bookings])
   return (
-    <div className="flex gap-5">
-      <div className="flex flex-col gap-6">
+    <div className="flex gap-5 md:mx-auto lg:w-[90%]">
+      <div className="flex w-full flex-col gap-6">
         {/* Confirmados */}
         {confirmedBookings.length > 0 && (
-          <>
-            <h2 className="mb-2 text-xs font-bold uppercase text-gray-400">
+          <div className="w-full">
+            <h2 className="mb-3 text-xs font-bold uppercase text-gray-400">
               Confirmados
             </h2>
             <div className="flex flex-col gap-4">
@@ -74,13 +74,13 @@ export default function BookingsClient({
                 />
               ))}
             </div>
-          </>
+          </div>
         )}
 
         {/* Finalizados */}
         {concludedBookings.length > 0 && (
-          <>
-            <h2 className="mb-2 mt-6 text-xs font-bold uppercase text-gray-400">
+          <div className="w-full">
+            <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
               Finalizados
             </h2>
             <div className="flex flex-col gap-4">
@@ -92,11 +92,13 @@ export default function BookingsClient({
                 />
               ))}
             </div>
-          </>
+          </div>
         )}
       </div>
 
-      <Card className="hidden md:block">
+      <Card
+        className={`hidden w-[70%] md:block ${confirmedBookings.length > 0 ? "mt-[27px]" : "mt-[52px]"}`}
+      >
         <CardContent>
           {selectedBooking && barberShop && service && selectedDate ? (
             <>
@@ -158,9 +160,11 @@ export default function BookingsClient({
               </div>
             </>
           ) : (
-            <p className="text-gray-400">
-              Clique em um agendamento para ver os detalhes.
-            </p>
+            <div className="p-5 text-center">
+              <p className="text-gray-400">
+                Clique em um agendamento para ver os detalhes.
+              </p>
+            </div>
           )}
         </CardContent>
       </Card>
