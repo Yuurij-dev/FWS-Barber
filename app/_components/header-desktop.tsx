@@ -6,14 +6,23 @@ import { Sheet, SheetTrigger } from "./ui/sheet"
 import { Button } from "./ui/button"
 import SideBarSheet from "./sidebar-sheet"
 import Link from "next/link"
-import { useSession } from "next-auth/react"
-import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog"
+import { signOut, useSession } from "next-auth/react"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog"
 import SignInDialog from "./sign-in-dialog"
 import { Avatar, AvatarImage } from "./ui/avatar"
 import Search from "./search"
 
 const HeaderDesktop = () => {
   const { data } = useSession()
+  const handleLogoutClick = () => signOut()
+
   return (
     <Card className="hidden w-full md:block">
       <CardContent className="flex w-full flex-row items-center justify-between gap-5 p-5 xl:m-auto xl:max-w-[1500px]">
@@ -44,15 +53,43 @@ const HeaderDesktop = () => {
               </Link>
             </Button>
 
-            <div className="hidden items-center gap-2 xl:flex">
-              <Avatar>
-                <AvatarImage
-                  src={data.user.image ?? undefined}
-                  alt="User image"
-                />
-              </Avatar>
-              <h2 className="font-semibold">{data.user.name}</h2>
-            </div>
+            <Dialog>
+              <DialogTrigger asChild>
+                <div className="hidden items-center gap-2 xl:flex">
+                  <Avatar>
+                    <AvatarImage
+                      src={data.user.image ?? undefined}
+                      alt="User image"
+                    />
+                  </Avatar>
+                  <h2 className="font-semibold">{data.user.name}</h2>
+                </div>
+              </DialogTrigger>
+
+              <DialogContent className="w-[90vw] max-w-sm rounded-2xl p-6 text-center">
+                <DialogHeader className="items-center justify-center">
+                  <DialogTitle className="text-lg font-semibold">
+                    Sair
+                  </DialogTitle>
+                  <DialogDescription className="text-sm text-gray-400">
+                    Deseja sair da plataforma?
+                  </DialogDescription>
+                </DialogHeader>
+
+                <div className="mt-4 flex w-full gap-3">
+                  <Button className="flex-1" variant="secondary">
+                    Cancelar
+                  </Button>
+                  <Button
+                    className="flex-1"
+                    variant="destructive"
+                    onClick={handleLogoutClick}
+                  >
+                    Sair
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
         ) : (
           <Dialog>
