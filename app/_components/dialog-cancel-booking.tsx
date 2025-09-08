@@ -30,8 +30,8 @@ export const DialogCancelBooking = ({
           Cancelar reserva
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-[90%]">
-        <DialogHeader>
+      <DialogContent className="w-[90vw] max-w-[350px]">
+        <DialogHeader className="md:flex md:flex-col md:items-center md:justify-center md:text-center">
           <DialogTitle>Cancelar reserva?</DialogTitle>
           <DialogDescription>
             Tem certeza que deseja cancelar sua reserva, essa ação é
