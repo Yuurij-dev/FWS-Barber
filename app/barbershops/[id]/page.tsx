@@ -69,8 +69,8 @@ const BarberShopPage = async ({ params }: BarberShopPageProps) => {
             </Sheet>
           </div>
 
-          {/* Informações */}
-          <div className="border-b border-solid p-5">
+          {/* Informações Mobile*/}
+          <div className="border-b border-solid p-5 lg:hidden">
             <h1 className="mb-3 text-xl font-bold">{barbershop.name}</h1>
             <div className="mb-2 flex items-center gap-2">
               <MapIcon className="text-primary" size={18} />
@@ -80,6 +80,25 @@ const BarberShopPage = async ({ params }: BarberShopPageProps) => {
             <div className="flex items-center gap-2">
               <StarIcon className="fill-primary text-primary" size={18} />
               <p className="text-sm">5,0 (459 Avaliações)</p>
+            </div>
+          </div>
+
+          {/* Informações Desktop */}
+          <div className="hidden items-center justify-between border-b border-solid p-5 lg:flex">
+            <div>
+              <h1 className="mb-3 text-3xl font-bold">{barbershop.name}</h1>
+              <div className="mb-2 flex items-center gap-2">
+                <MapIcon className="text-primary" size={18} />
+                <p className="text-lg">{barbershop.address}</p>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center gap-2 rounded-xl bg-[#1a1b1f] p-5">
+              <div className="flex items-center gap-3">
+                <StarIcon className="fill-primary text-primary" size={18} />
+                <p className="text-3xl font-bold">5,0</p>
+              </div>
+              <p className="text-md">459 Avaliações</p>
             </div>
           </div>
 
