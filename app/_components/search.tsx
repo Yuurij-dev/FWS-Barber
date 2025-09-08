@@ -40,7 +40,7 @@ const Search = () => {
             <FormItem className="w-full">
               <FormControl>
                 <Input
-                  className="xl:h-10"
+                  className="bg-[#1a1b1f] xl:h-10"
                   placeholder="Faça sua busca..."
                   {...field}
                 />

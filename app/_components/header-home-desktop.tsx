@@ -17,9 +17,8 @@ import {
 } from "./ui/dialog"
 import SignInDialog from "./sign-in-dialog"
 import { Avatar, AvatarImage } from "./ui/avatar"
-import Search from "./search"
 
-const HeaderDesktop = () => {
+const HeaderHomeDesktop = () => {
   const { data } = useSession()
   const handleLogoutClick = () => signOut()
 
@@ -30,10 +29,6 @@ const HeaderDesktop = () => {
           <Link href={"/"}>
             <Image alt="FSW Barber" src="/logo.png" height={10} width={120} />
           </Link>
-
-          <div className="w-full max-w-[700px]">
-            <Search />
-          </div>
         </div>
         <Sheet>
           <SheetTrigger asChild>
@@ -114,4 +109,4 @@ const HeaderDesktop = () => {
   )
 }
 
-export default HeaderDesktop
+export default HeaderHomeDesktop

@@ -44,7 +44,7 @@ const Header = () => {
                   alt="User image"
                 />
               </Avatar>
-              <h2 className="font-semibold">{data.user.name}</h2>
+              <h2 className="truncate font-semibold">{data.user.name}</h2>
             </div>
           </div>
         ) : (

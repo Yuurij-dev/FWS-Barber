@@ -13,7 +13,7 @@ import { ptBR } from "date-fns/locale"
 import { getConfirmedBookings } from "./_data/get-confirmed-bookings"
 import { getPopularBarberShops } from "./_data/get-popular-barbershops"
 import { getBarberShops } from "./_data/get-barbershops"
-import HeaderDesktop from "./_components/header-desktop"
+import HeaderHomeDesktop from "./_components/header-home-desktop"
 
 export default async function Home() {
   const session = await getServerSession(authOptions)
@@ -25,7 +25,7 @@ export default async function Home() {
   return (
     <div className="">
       <Header />
-      <HeaderDesktop />
+      <HeaderHomeDesktop />
       <div className="">
         <div className="relative">
           <div className="absolute inset-0 -z-10 hidden lg:block">
