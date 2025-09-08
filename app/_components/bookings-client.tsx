@@ -1,12 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import BookingItem from "../_components/booking-item"
 import { Card, CardContent } from "../_components/ui/card"
 import { Badge } from "../_components/ui/badge"
 import BookingSummary from "../_components/booking-summary"
 import PhoneItem from "../_components/phone-item"
-import { isFuture } from "date-fns"
+import { isFuture, isPast } from "date-fns"
 import { Prisma } from "@prisma/client"
 import Image from "next/image"
 import { Avatar, AvatarImage } from "./ui/avatar"
@@ -36,16 +36,26 @@ export default function BookingsClient({
   const isConfirmed = selectedBooking ? isFuture(selectedBooking.date) : false
 
   const [confirmedBookings, setConfirmedBookings] = useState(
-    bookings.filter((b) => isFuture(b.date)),
+    bookings.filter((b) => isFuture(new Date(b.date))),
   )
+
   const [concludedBookings] = useState(
-    bookings.filter((b) => !isFuture(b.date)),
+    bookings.filter((b) => isPast(new Date(b.date))),
   )
 
   const handleCancelBooking = (id: string) => {
     setSelectedBooking(null)
     setConfirmedBookings((prev) => prev.filter((b) => b.id !== id))
   }
+
+  useEffect(() => {
+    bookings.forEach((b) => {
+      console.log("ID:", b.id)
+      console.log("Date bruto:", b.date)
+      console.log("isFuture:", isFuture(b.date))
+      console.log("isPast:", isPast(b.date))
+    })
+  }, [bookings])
   return (
     <div className="flex gap-5">
       <div className="flex flex-col gap-6">

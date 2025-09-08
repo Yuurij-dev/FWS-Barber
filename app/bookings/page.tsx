@@ -29,7 +29,7 @@ const Bookings = async () => {
         {confirmedBookings.length === 0 && concludedBookings.length === 0 && (
           <p className="text-gray-400">Você ainda não tem agendamentos.</p>
         )}
-        {confirmedBookings.length > 0 && (
+        {(confirmedBookings.length > 0 || concludedBookings.length > 0) && (
           <>
             <div className="">
               <BookingsClient
