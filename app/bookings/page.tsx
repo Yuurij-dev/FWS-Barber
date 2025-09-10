@@ -23,7 +23,7 @@ const Bookings = async () => {
       <Header />
       <HeaderDesktop />
 
-      <div className="jusctify-center flex w-full flex-col space-y-3 p-5 md:m-auto md:max-w-[1500px]">
+      <div className="flex w-full flex-col space-y-3 p-5 md:m-auto md:max-w-[1500px]">
         <div className="mb-3 w-full md:mx-auto lg:w-[90%]">
           <h1 className="text-xl font-bold">Agendamentos</h1>
         </div>

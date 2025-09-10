@@ -57,15 +57,15 @@ export default function BookingsClient({
     })
   }, [bookings])
   return (
-    <div className="flex gap-5 md:mx-auto lg:w-[90%]">
-      <div className="flex w-full flex-col gap-6">
+    <div className="flex items-start justify-between gap-5 md:mx-auto lg:w-[90%]">
+      <div className="flex w-full flex-col gap-6 md:w-[50%]">
         {/* Confirmados */}
         {confirmedBookings.length > 0 && (
           <div className="w-full">
             <h2 className="mb-3 text-xs font-bold uppercase text-gray-400">
               Confirmados
             </h2>
-            <div className="flex flex-col gap-4">
+            <div className="scrollbar flex max-h-[400px] flex-col gap-4 overflow-y-auto">
               {confirmedBookings.map((booking) => (
                 <BookingItem
                   key={booking.id}
@@ -83,7 +83,7 @@ export default function BookingsClient({
             <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
               Finalizados
             </h2>
-            <div className="flex flex-col gap-4">
+            <div className="scrollbar flex max-h-[400px] flex-col gap-4 overflow-y-auto">
               {concludedBookings.map((booking) => (
                 <BookingItem
                   key={booking.id}
@@ -97,7 +97,7 @@ export default function BookingsClient({
       </div>
 
       <Card
-        className={`hidden w-[70%] md:block ${confirmedBookings.length > 0 ? "mt-[27px]" : "mt-[52px]"}`}
+        className={`hidden max-w-[500px] md:block ${confirmedBookings.length > 0 ? "mt-[27px]" : "mt-[52px]"}`}
       >
         <CardContent>
           {selectedBooking && barberShop && service && selectedDate ? (
@@ -160,7 +160,7 @@ export default function BookingsClient({
               </div>
             </>
           ) : (
-            <div className="p-5 text-center">
+            <div className="w-full p-5 text-center">
               <p className="text-gray-400">
                 Clique em um agendamento para ver os detalhes.
               </p>

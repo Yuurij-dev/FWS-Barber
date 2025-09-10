@@ -47,3 +47,21 @@
     @apply h-full bg-background text-foreground;
   }
 }
+
+
+.scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: #4b5563; /* gray-700 */
+  border-radius: 9999px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #9ca3af; /* gray-400 */
+}
