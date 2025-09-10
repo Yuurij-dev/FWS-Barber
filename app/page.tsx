@@ -70,7 +70,7 @@ export default async function Home() {
                             new Date(b.date).getTime(),
                         )
                         // Pega apenas o primeiro (mais próximo)
-                        const nextBooking = sortedBookings.slice(0, 2)
+                        const nextBooking = sortedBookings.slice(0, 1)
 
                         return nextBooking.map((booking) => (
                           <BookingItem
