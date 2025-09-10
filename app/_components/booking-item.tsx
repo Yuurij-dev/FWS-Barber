@@ -52,7 +52,7 @@ const BookingItem = ({ booking, onClick }: BookingItemProps) => {
       className="cursor-pointer transition hover:shadow-md"
     >
       <CardContent className="flex justify-between p-0">
-        <div className="flex flex-col gap-2 py-5 pl-5">
+        <div className="flex w-[300px] flex-col items-start gap-2 py-5 pl-5">
           <Badge
             className="w-fit"
             variant={isConfirmed ? "default" : "secondary"}

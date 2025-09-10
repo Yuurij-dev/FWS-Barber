@@ -65,7 +65,7 @@ export default function BookingsClient({
             <h2 className="mb-3 text-xs font-bold uppercase text-gray-400">
               Confirmados
             </h2>
-            <div className="scrollbar flex max-h-[400px] flex-col gap-4 overflow-y-auto">
+            <div className="scrollbar flex flex-col gap-4 pr-3 md:max-h-[400px] md:overflow-y-auto">
               {confirmedBookings.map((booking) => (
                 <BookingItem
                   key={booking.id}
@@ -83,7 +83,7 @@ export default function BookingsClient({
             <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
               Finalizados
             </h2>
-            <div className="scrollbar flex max-h-[400px] flex-col gap-4 overflow-y-auto">
+            <div className="scrollbar flex flex-col gap-4 pr-3 md:max-h-[400px] md:overflow-y-auto">
               {concludedBookings.map((booking) => (
                 <BookingItem
                   key={booking.id}
