@@ -9,6 +9,7 @@ import Link from "next/link"
 import { signOut, useSession } from "next-auth/react"
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -72,9 +73,11 @@ const HeaderHomeDesktop = () => {
                 </DialogHeader>
 
                 <div className="mt-4 flex w-full gap-3">
-                  <Button className="flex-1" variant="secondary">
-                    Cancelar
-                  </Button>
+                  <DialogClose asChild>
+                    <Button className="flex-1" variant="secondary">
+                      Cancelar
+                    </Button>
+                  </DialogClose>
                   <Button
                     className="flex-1"
                     variant="destructive"

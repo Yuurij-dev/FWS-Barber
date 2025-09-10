@@ -18,6 +18,7 @@ import {
 import SignInDialog from "./sign-in-dialog"
 import { Avatar, AvatarImage } from "./ui/avatar"
 import Search from "./search"
+import { DialogClose } from "@radix-ui/react-dialog"
 
 const HeaderDesktop = () => {
   const { data } = useSession()
@@ -77,9 +78,11 @@ const HeaderDesktop = () => {
                 </DialogHeader>
 
                 <div className="mt-4 flex w-full gap-3">
-                  <Button className="flex-1" variant="secondary">
-                    Cancelar
-                  </Button>
+                  <DialogClose asChild>
+                    <Button className="flex-1" variant="secondary">
+                      Cancelar
+                    </Button>
+                  </DialogClose>
                   <Button
                     className="flex-1"
                     variant="destructive"
